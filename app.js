@@ -14,6 +14,7 @@ app.get('/notes', (req, res) => {
 app.post('/notes', (req, res) => {
   const { title, content } = req.body;
   notes.push({ id: notes.length + 1, title: title, content: content });
+  res.status(200).json({ message: 'Note added successfully' });
 });
 
 app.get('/notes/:id', (req, res) => {
