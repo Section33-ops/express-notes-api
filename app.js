@@ -13,7 +13,7 @@ app.get('/notes', (req, res) => {
 
 app.post('/notes', (req, res) => {
   const { title, content } = req.body;
-  notes.push({ title: title, content: content });
+  notes.push({ id: notes.length + 1, title: title, content: content });
 });
 
 app.listen(port, () => {
