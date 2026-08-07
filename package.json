@@ -1,0 +1,23 @@
+{
+  "name": "express-notes-api",
+  "version": "1.0.0",
+  "description": "an api to manage notes",
+  "homepage": "https://github.com/Section33-ops/express-notes-api#readme",
+  "bugs": {
+    "url": "https://github.com/Section33-ops/express-notes-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Section33-ops/express-notes-api.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
