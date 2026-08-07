@@ -3,7 +3,7 @@ import express from 'express';
 const app = express();
 const port = 8080;
 
-const notes = [];
+let notes = [];
 
 app.use(express.json());
 
@@ -21,6 +21,18 @@ app.get('/notes/:id', (req, res) => {
   const findId = Number(req.params.id);
   const findNote = notes.filter((note) => note.id === findId);
   res.json(findNote);
+});
+
+app.put('/notes/:id', (req, res) => {
+  const { content } = req.body;
+  const findId = Number(req.params.id);
+  const updateNotes = notes.map((note) =>
+    note.id === findId ? { ...note, content: content } : note,
+  );
+  console.log(`UpdateNotes = ${updateNotes}`);
+  notes = updateNotes;
+  console.log(`Notes = ${notes}`);
+  res.json(notes);
 });
 
 app.listen(port, () => {
