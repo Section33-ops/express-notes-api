@@ -5,8 +5,15 @@ const port = 8080;
 
 const notes = [];
 
+app.use(express.json());
+
 app.get('/notes', (req, res) => {
   res.json(notes);
+});
+
+app.post('/notes', (req, res) => {
+  const { title, content } = req.body;
+  notes.push({ title: title, content: content });
 });
 
 app.listen(port, () => {
