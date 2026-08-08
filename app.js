@@ -25,6 +25,18 @@ function validateReqBody(req, res, next) {
   }
 }
 
+function validateNoteUpdate(req, res, next) {
+  if (req.body != undefined && Object.keys(req.body).length != 0) {
+    if (Object.hasOwn(req.body, 'content')) {
+      next();
+    } else {
+      res.status(400).json({ message: 'bad request body' });
+    }
+  } else {
+    res.status(400).json({ message: 'bad request body' });
+  }
+}
+
 app.use(express.json());
 
 app.get('/notes', logRequest, (req, res) => {
@@ -51,7 +63,7 @@ app.get('/notes/:id', logRequest, (req, res) => {
   res.json(findNote);
 });
 
-app.put('/notes/:id', logRequest, validateReqBody, (req, res) => {
+app.put('/notes/:id', logRequest, validateNoteUpdate, (req, res) => {
   const { content } = req.body;
   const findId = Number(req.params.id);
   const updateNotes = notes.map((note) =>
