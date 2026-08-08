@@ -10,13 +10,21 @@ function logRequest(req, res, next) {
   next();
 }
 
+function validateReqBody(req, res, next) {
+  if (req.body != undefined && Object.keys(req.body).length != 0) {
+    next();
+  } else {
+    res.status(400).json({ message: 'bad request body' });
+  }
+}
+
 app.use(express.json());
 
 app.get('/notes', logRequest, (req, res) => {
   res.json(notes);
 });
 
-app.post('/notes', logRequest, (req, res) => {
+app.post('/notes', logRequest, validateReqBody, (req, res) => {
   const { title, content } = req.body;
   notes.push({ id: notes.length + 1, title: title, content: content });
   res.status(200).json({ message: 'Note added successfully' });
@@ -36,7 +44,7 @@ app.get('/notes/:id', logRequest, (req, res) => {
   res.json(findNote);
 });
 
-app.put('/notes/:id', logRequest, (req, res) => {
+app.put('/notes/:id', logRequest, validateReqBody, (req, res) => {
   const { content } = req.body;
   const findId = Number(req.params.id);
   const updateNotes = notes.map((note) =>
