@@ -12,7 +12,14 @@ function logRequest(req, res, next) {
 
 function validateReqBody(req, res, next) {
   if (req.body != undefined && Object.keys(req.body).length != 0) {
-    next();
+    if (
+      Object.hasOwn(req.body, 'title') &&
+      Object.hasOwn(req.body, 'content')
+    ) {
+      next();
+    } else {
+      res.status(400).json({ message: 'bad request body' });
+    }
   } else {
     res.status(400).json({ message: 'bad request body' });
   }
