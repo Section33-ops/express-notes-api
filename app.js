@@ -35,6 +35,20 @@ app.put('/notes/:id', (req, res) => {
   res.json(notes);
 });
 
+app.delete('/notes/:id', (req, res) => {
+  const findId = Number(req.params.id);
+  let idNum = 0;
+  const updateNotes = notes
+    .filter((note) => note.id != findId)
+    .map((note) => {
+      idNum++;
+      return { ...note, id: idNum };
+    });
+  notes = updateNotes;
+
+  res.json({ message: 'Note deleted successfully' });
+});
+
 app.listen(port, () => {
   console.log(`Notes API is up and running on port ${port}`);
 });
