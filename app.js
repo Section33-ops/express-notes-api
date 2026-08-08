@@ -10,7 +10,7 @@ function logRequest(req, res, next) {
   next();
 }
 
-function validateReqBody(req, res, next) {
+function validateNewNote(req, res, next) {
   if (req.body != undefined && Object.keys(req.body).length != 0) {
     if (
       Object.hasOwn(req.body, 'title') &&
