@@ -17,6 +17,14 @@ app.post('/notes', (req, res) => {
   res.status(200).json({ message: 'Note added successfully' });
 });
 
+app.get('/notes/find', (req, res) => {
+  const searchKeyword = req.query.search.toLowerCase();
+  const foundNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchKeyword),
+  );
+  res.json(foundNotes);
+});
+
 app.get('/notes/:id', (req, res) => {
   const findId = Number(req.params.id);
   const findNote = notes.filter((note) => note.id === findId);
