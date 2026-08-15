@@ -43,7 +43,7 @@ app.get('/notes', logRequest, (req, res) => {
   res.json(notes);
 });
 
-app.post('/notes', logRequest, validateReqBody, (req, res) => {
+app.post('/notes', logRequest, validateNewNote, (req, res) => {
   const { title, content } = req.body;
   notes.push({ id: notes.length + 1, title: title, content: content });
   res.status(200).json({ message: 'Note added successfully' });
@@ -60,7 +60,11 @@ app.get('/notes/find', logRequest, (req, res) => {
 app.get('/notes/:id', logRequest, (req, res) => {
   const findId = Number(req.params.id);
   const findNote = notes.filter((note) => note.id === findId);
-  res.json(findNote);
+  if (findNote.length != 0) {
+    res.json(findNote);
+  } else {
+    res.status(400).json({ message: 'Note not found' });
+  }
 });
 
 app.put('/notes/:id', logRequest, validateNoteUpdate, (req, res) => {
