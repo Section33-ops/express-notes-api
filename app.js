@@ -66,7 +66,7 @@ app.get('/notes/:id', logRequest, (req, res) => {
   if (findNote.length != 0) {
     res.json(findNote);
   } else {
-    res.status(400).json({ message: 'Note not found' });
+    res.status(404).json({ message: 'Note not found' });
   }
 });
 
